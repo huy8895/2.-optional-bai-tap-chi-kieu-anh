@@ -274,12 +274,17 @@ public class BookManager {
         int n = booksList.size();
         for (int i = 0; i < n; i++) {
             Book min = booksList.get(i);
+            int minIndex = i;
             for (int j = i + 1; j < n; j++) {
                 if (min.getPrice() > booksList.get(j).getPrice()) {
-                    Book temp = booksList.get(i);
-                    booksList.set(i, booksList.get(j));
-                    booksList.set(j, temp);
+                    min = booksList.get(j);
+                    minIndex = j;
                 }
+            }
+
+            if (minIndex != i){
+                booksList.set(minIndex,booksList.get(i));
+                booksList.set(i,min);
             }
         }
     }
