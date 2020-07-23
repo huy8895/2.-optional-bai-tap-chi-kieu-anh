@@ -175,15 +175,20 @@ public class BookManager2 {
     public void getPriceByBookNameVerLinearSearch(){
         System.out.println("nhap ten sach can tim: ");
         String bookName = scanner.nextLine();
-
-        ArrayList<? extends Book> bookArrayList = new ArrayList<>();
-        Collections.addAll(listProgrammingBook);
-        Collections.addAll(listFictionBook);
-        for (Book book:bookArrayList){
-            if (book.getName().equals(bookName))
+        boolean isExit = false;
+        for (Book book:listProgrammingBook){
+            if (book.getName().equals(bookName)){
                 System.out.println("gia cua " + bookName + " la: " + book.getPrice());
-            else
-                System.out.println("khong tim thay cuon sach co ten la: " + bookName);
+                isExit = true;
+            }
         }
+        for (Book book: listFictionBook){
+            if (book.getName().equals(bookName)){
+                System.out.println("gia cua " + bookName + " la: " + book.getPrice());
+                isExit = true;
+            }
+        }
+        if (!isExit)
+        System.out.println("khong tim thay cuon sach co ten la: " + bookName);
     }
 }
