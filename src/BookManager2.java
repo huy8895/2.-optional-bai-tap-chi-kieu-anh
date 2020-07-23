@@ -192,7 +192,7 @@ public class BookManager2 {
     }
 
     public void getPriceByBookNameVerBinarySearch() {
-        Collections.sort(booksList, new Comparator<Book>() {
+        booksList.sort(new Comparator<Book>() {
             @Override
             public int compare(Book b1, Book b2) {
                 return b1.getName().compareTo(b2.getName());
@@ -205,13 +205,14 @@ public class BookManager2 {
         int high = booksList.size() - 1;
         while (high > low) {
             int mid = (high + low) / 2;
-            if (booksList.get(low).getName().compareTo(booksList.get(mid).getName()) < 0) {
+            if (bookName.compareTo(booksList.get(mid).getName()) < 0) {
                 high = mid - 1;
-            } else if (booksList.get(low).getName().compareTo(booksList.get(mid).getName()) > 0) {
+            } else if (bookName.compareTo(booksList.get(mid).getName()) > 0) {
                 low = mid + 1;
-            } else if (bookName.equals(booksList.get(mid).getName())) {
+            } else if (bookName.compareTo(booksList.get(mid).getName()) == 0) {
                 System.out.println("cuon sach ten: " + bookName + " co gia la: " + booksList.get(mid).getPrice());
                 isExit = true;
+                break;
             }
         }
         if (!isExit)
