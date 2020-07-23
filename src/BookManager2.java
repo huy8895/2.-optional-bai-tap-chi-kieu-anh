@@ -45,6 +45,10 @@ public class BookManager2 {
                 case TWO:
                     getTotalPrice();
                     break;
+                case THREE:
+                case FOUR:
+                case FIVE:
+                case SIX:
                 case SEVEN:
                     display();
                     break;
