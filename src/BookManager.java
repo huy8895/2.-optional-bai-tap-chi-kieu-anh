@@ -1,200 +1,284 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
 
 public class BookManager {
-    public static void main(String[] args) {
-        Book[] programmingBooks = new ProgrammingBook[5];
-        Book[] fictionBooks = new FictionBook[5];
+    Scanner scanner = new Scanner(System.in);
+    ArrayList<Book> booksList = new ArrayList<>();
 
-        //BookManager.setBookDataManual(programmingBooks);
-        BookManager.setProgrammingBookDataByTemplate(programmingBooks);
-        BookManager.setFictionBookDataByTemplate(fictionBooks);
-        BookManager.displayAll(programmingBooks,fictionBooks);
+    private static String choice;
+    private static final String JAVA_BOOK = "1";
+    private static final String FICTION_BOOK = "2";
+    private static final String ONE = "1";
+    private static final String TWO = "2";
+    private static final String THREE = "3";
+    private static final String FOUR = "4";
+    private static final String FIVE = "5";
+    private static final String SIX = "6";
+    private static final String SEVEN = "7";
+    private static final String ZERO = "0";
 
-
-    }
-    public static Book[] combine(Book[] books1,Book[] books2){
-        int lengthNew = books1.length + books2.length;
-        Book[] books = new Book[lengthNew];
-        for (int i = 0; i < books1.length;i++){
-            books[i] = books1[i];
-        }
-        for (int j = books1.length -1; j < lengthNew;j++){
-            books[j] = books[j];
-        }
-        return books;
+    BookManager() {
+        setDefaultData();
     }
 
-    public static void displayAll(Book[] books1,Book[] books2) {
-        ArrayList<Book> books = new ArrayList<>();
-        Collections.addAll(books,books1);
-        Collections.addAll(books,books2);
-        for (Book book : books)
+    public void startMenu() {
+        while (true) {
+            System.out.println("-----");
+            System.out.println("Menu: ");
+            System.out.println("1. them sach");
+            System.out.println("2. hien thi tong tien ");
+            System.out.println("3. dem so sach la java ");
+            System.out.println("4. tim gia theo ten ");
+            System.out.println("5. sap xep thu vien ");
+            System.out.println("6. tim gia theo ten bang phuong phap nhi phan ");
+            System.out.println("7. hien thi danh sach cua thu vien ");
+            System.out.println("0. exit");
+            System.out.println("-----");
+            choice = scanner.nextLine();
+            switch (choice) {
+                case ONE:
+                    addBook();
+                    break;
+                case TWO:
+                    getTotalPrice();
+                    break;
+                case THREE:
+                    getNumberJavaBooks();
+                    break;
+                case FOUR:
+                    getPriceByBookNameVerLinearSearch();
+                    break;
+                case FIVE:
+                    sort();
+                    break;
+                case SIX:
+                    getPriceByBookNameVerBinarySearch();
+                    break;
+                case SEVEN:
+                    display();
+                    break;
+                case ZERO:
+                    System.exit(0);
+                default:
+                    startMenu();
+            }
+        }
+    }
+
+    private void setDefaultData() {
+        booksList.clear();
+        booksList.add(new ProgrammingBook("pgb1", "java book", 30, "Leigh", "Java", "none"));
+        booksList.add(new ProgrammingBook("pgb2", "php book", 20, "Casey", "php", "none"));
+        booksList.add(new ProgrammingBook("pgb3", "C# book", 50, "McQuiston", "C#", "none"));
+        booksList.add(new ProgrammingBook("pgb4", "C++ book", 40, "Griffin", "C++", "none"));
+
+        booksList.add(new FictionBook("fcb1", "harry porter ", 55, "Bardugo", "khoa hoc vien tuong"));
+        booksList.add(new FictionBook("fcb2", "the hobbit", 35, "Taylor", "khoa hoc vien tuong"));
+        booksList.add(new FictionBook("fcb3", "the silent patient", 35, "alex", "khoa hoc vien tuong"));
+        booksList.add(new FictionBook("fcb4", "the testaments", 28.95, "Margret Atwood", "khoa hoc vien tuong"));
+    }
+
+    public void addBook() {
+
+        System.out.println("1. them sach Programming book.");
+        System.out.println("2. them sach Fiction book");
+        System.out.println("0. quay tro lai");
+        choice = scanner.nextLine();
+
+        switch (choice) {
+            case JAVA_BOOK:
+                addProgrammingBook();
+                break;
+            case FICTION_BOOK:
+                addFictionBook();
+                break;
+            case ZERO:
+                startMenu();
+                break;
+            default:
+                addBook();
+        }
+
+    }
+
+    public void addProgrammingBook() {
+        ProgrammingBook programmingBook = new ProgrammingBook();
+        System.out.println("Enter ProgrammingBook code: ");
+        programmingBook.setBookCode(scanner.nextLine());
+
+        System.out.println("Enter ProgrammingBook name: ");
+        programmingBook.setName(scanner.nextLine());
+
+        System.out.println("Enter ProgrammingBook author: ");
+        programmingBook.setAuthor(scanner.nextLine());
+
+        System.out.println("Enter ProgrammingBook language: ");
+        programmingBook.setLanguage(scanner.nextLine());
+
+        System.out.println("Enter ProgrammingBook frameWork: ");
+        programmingBook.setFrameWork(scanner.nextLine());
+
+        System.out.println("Enter ProgrammingBook price: ");
+        programmingBook.setPrice(scanner.nextDouble());
+        scanner.nextLine();
+        booksList.add(programmingBook);
+    }
+
+    public void addFictionBook() {
+        FictionBook fictionBook = new FictionBook();
+        System.out.println("Enter FictionBook code: ");
+        fictionBook.setBookCode(scanner.nextLine());
+
+        System.out.println("Enter FictionBook name: ");
+        fictionBook.setName(scanner.nextLine());
+
+        System.out.println("Enter FictionBook author: ");
+        fictionBook.setAuthor(scanner.nextLine());
+
+        System.out.println("Enter FictionBook category: ");
+        fictionBook.setCategory(scanner.nextLine());
+
+        System.out.println("Enter FictionBook price: ");
+        fictionBook.setPrice(scanner.nextDouble());
+        scanner.nextLine();
+        booksList.add(fictionBook);
+    }
+
+    public void getTotalPrice() {
+        double totalPrice = 0;
+        for (Book book : booksList)
+            totalPrice += book.getPrice();
+        System.out.println("tong tien: " + totalPrice);
+
+    }
+
+    public void getNumberJavaBooks() {
+        int countJavaBook = 0;
+        for (Book book : booksList) {
+            if (book instanceof ProgrammingBook) {
+                if (((ProgrammingBook) book).getLanguage().equals("Java"))
+                    countJavaBook++;
+            }
+
+        }
+        System.out.println("so luong sach Java : " + countJavaBook);
+    }
+
+    public void display() {
+        for (Book book : booksList)
             System.out.println(book);
-
-    }
-    public static void displayAll(Book[] books1) {
-        ArrayList<Book> books = new ArrayList<>();
-        Collections.addAll(books,books1);
-        for (Book book : books)
-            System.out.println(book);
-
+        System.out.println();
     }
 
-//    //public static void showTotalPrice() {
-//        System.out.println("Total Price: " + Book.getTotalPrice());
-//    }
-
-    public static void setBookDataManual(Book[] books) {
-        Scanner scanner = new Scanner(System.in);
-        if (books instanceof ProgrammingBook[]) {
-            for (int i = 0; i < books.length; i++) {
-                int no = i + 1;
-                books[i] = new ProgrammingBook();
-                System.out.println("Enter ProgrammingBook" + no + " code: ");
-                books[i].setBookCode(scanner.nextLine());
-
-                System.out.println("Enter ProgrammingBook" + no + " name: ");
-                books[i].setName(scanner.nextLine());
-
-                System.out.println("Enter ProgrammingBook" + no + " author: ");
-                books[i].setAuthor(scanner.nextLine());
-
-                System.out.println("Enter ProgrammingBook" + no + " language: ");
-                ((ProgrammingBook) books[i]).setLanguage(scanner.nextLine());
-
-                System.out.println("Enter ProgrammingBook" + no + " frameWork: ");
-                ((ProgrammingBook) books[i]).setFrameWork(scanner.nextLine());
-
-                System.out.println("Enter ProgrammingBook" + no + " price: ");
-                books[i].setPrice(scanner.nextDouble());
-                scanner.nextLine();
-
+    public void getPriceByBookNameVerLinearSearch() {
+        System.out.println("nhap ten sach can tim: ");
+        String bookName = scanner.nextLine().trim();
+        boolean isExit = false;
+        for (Book book : booksList) {
+            if (book.getName().equals(bookName)) {
+                System.out.println("cuon sach ten: " + bookName + " co gia la: " + book.getPrice());
+                isExit = true;
             }
         }
-        if (books instanceof FictionBook[]) {
-            for (Book book : books) {
-                book = new FictionBook();
-                System.out.println("Enter FictionBook code: ");
-                book.setBookCode(scanner.nextLine());
-
-                System.out.println("Enter FictionBook name: ");
-                book.setName(scanner.nextLine());
-
-                System.out.println("Enter FictionBook price: ");
-                book.setPrice(scanner.nextDouble());
-
-                System.out.println("Enter FictionBook author: ");
-                book.setAuthor(scanner.nextLine());
-
-                System.out.println("Enter FictionBook category: ");
-                ((FictionBook) book).setCategory(scanner.nextLine());
-            }
-        }
+        if (!isExit)
+            System.out.println("khong tim thay cuon sach co ten la: " + bookName);
     }
 
-    public static void setProgrammingBookDataByTemplate(Book[] books) {
-        books[0] = new ProgrammingBook("pgb1", "java book huy", 50, "tony Dung", "Java", "none");
-        books[1] = new ProgrammingBook("pgb2", "java book tuan", 10, "tony Dung", "Java", "none");
-        books[2] = new ProgrammingBook("pgb3", "java book tung", 30.5, "tony Dung", "Java", "none");
-        books[3] = new ProgrammingBook("pgb4", "java book quan", 6.0, "tony Dung", "Java", "none");
-        books[4] = new ProgrammingBook("pgb5", "java book thuy", 70, "tony Dung", "Java", "none");
-    }
-
-    public static void setFictionBookDataByTemplate(Book[] books) {
-        books[0] = new FictionBook("fcb1", "fictionbook1", 10.6, "vo ba quan", "khoa hoc vien tuong");
-        books[1] = new FictionBook("fcb2", "my life story", 20.7, "quoc tung", "tam ly");
-        books[2] = new FictionBook("fcb3", "fictionbook3", 30.9, "chi thuy", "gia dinh");
-        books[3] = new FictionBook("fcb4", "my style", 40.1, "van dung", "fashion");
-        books[4] = new FictionBook("fcb5", "fictionbook5", 10.5, "adam quan", "honor");
-    }
-
-    public static double findPriceByLinearSearch(Book[] books, String bookName) {
-        for (Book book : books) {
-            if (bookName.equals(book.getName())) {
-                return book.getPrice();
-            }
-        }
-        return 0;
-    }
-
-    public static int findPriceByBinarySearch(Book[] books1,Book[] books2, String bookName) {
-        Book[] bookList = combine(books1,books2);
-        softBooksByName(bookList);
-
-        int low = 0;
-        int high = bookList.length - 1;
-        while (high > low) {
-            int mid = (high + low) / 2;
-            if (bookName.charAt(0) < bookList[mid].getName().charAt(0)) {
-                high = mid - 1;
-            } else if (bookName.charAt(0) < bookList[mid].getName().charAt(0)) {
-                low = mid + 1;
-            } else if (bookName.equals(bookList[mid])) {
-                return mid;
-            }
-        }
-        return -1;
-    }
-
-    public static void softBooksByName(Book[] books){
-        Arrays.sort(books, new Comparator<Book>() {
+    public void getPriceByBookNameVerBinarySearch() {
+        booksList.sort(new Comparator<Book>() {
             @Override
-            public int compare(Book book1, Book book2) {
-                return book1.getName().compareTo(book2.getName());
+            public int compare(Book b1, Book b2) {
+                return b1.getName().compareTo(b2.getName());
             }
         });
+        System.out.println("nhap ten sach can tim: ");
+        String bookName = scanner.nextLine().trim();
+        boolean isExit = false;
+        int low = 0;
+        int high = booksList.size() - 1;
+        while (high > low) {
+            int mid = (high + low) / 2;
+            if (bookName.compareTo(booksList.get(mid).getName()) < 0) {
+                high = mid - 1;
+            } else if (bookName.compareTo(booksList.get(mid).getName()) > 0) {
+                low = mid + 1;
+            } else if (bookName.compareTo(booksList.get(mid).getName()) == 0) {
+                System.out.println("cuon sach ten: " + bookName + " co gia la: " + booksList.get(mid).getPrice());
+                isExit = true;
+                break;
+            }
+        }
+        if (!isExit)
+            System.out.println("khong tim thay cuon sach co ten la: " + bookName);
     }
 
-    public static void sortBookName(Book[] books) {
-        int n = books.length;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (books[j].getName().charAt(0) > books[j + 1].getName().charAt(0)) {
-                    Book temp = books[j];
-                    books[j] = books[j + 1];
-                    books[j + 1] = temp;
-                }
-            }
+    public void sort() {
+        System.out.println("chon kieu sap xep: ");
+        System.out.println("1. Bubble sort.");
+        System.out.println("2. Insertion sort.");
+        System.out.println("3. Selection sort.");
+        System.out.println("4. Set Default");
+        choice = scanner.nextLine();
+        switch (choice) {
+            case ONE:
+                bubbleSortPrice();
+                break;
+            case TWO:
+                insertionSortPrice();
+                break;
+            case THREE:
+                selectionSortPrice();
+                break;
+            case FOUR:
+                setDefaultData();
+                break;
+            case ZERO:
+                startMenu();
+                break;
+            default:
+                sort();
         }
     }
 
-    public static void bubbleSortPrice(Book[] books) {
-        int n = books.length;
+    public void bubbleSortPrice() {
+        int n = booksList.size();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-                if (books[j].getPrice() > books[j + 1].getPrice()) {
-                    Book temp = books[j];
-                    books[j] = books[j + 1];
-                    books[j + 1] = temp;
+                if (booksList.get(j).getPrice() > booksList.get(j + 1).getPrice()) {
+                    Book temp = booksList.get(j);
+                    booksList.set(j, booksList.get(j + 1));
+                    booksList.set(j + 1, temp);
                 }
             }
         }
 
     }
 
-    public static void insertionSortPrice(Book[] books) {
-        int n = books.length;
+    public void insertionSortPrice() {
+        int n = booksList.size();
         for (int i = 0; i < n; i++) {
-            Book key = books[i];
+            Book key = booksList.get(i);
             int j = i - 1;
 
-            while (j >= 0 && books[j].getPrice() > key.getPrice()) {
-                books[j + 1] = books[j];
+            while (j >= 0 && booksList.get(j).getPrice() > key.getPrice()) {
+                booksList.set(j + 1, booksList.get(j));
                 j--;
             }
-            books[j + 1] = key;
+            booksList.set(j + 1, key);
         }
     }
 
-    public static void selectionSortPrice(Book[] books) {
-        int n = books.length;
+    public void selectionSortPrice() {
+        int n = booksList.size();
         for (int i = 0; i < n; i++) {
-            Book min = books[i];
+            Book min = booksList.get(i);
             for (int j = i + 1; j < n; j++) {
-                if (min.getPrice() > books[j].getPrice()) {
-                    Book temp = books[i];
-                    books[i] = books[j];
-                    books[j] = temp;
+                if (min.getPrice() > booksList.get(j).getPrice()) {
+                    Book temp = booksList.get(i);
+                    booksList.set(i, booksList.get(j));
+                    booksList.set(j, temp);
                 }
             }
         }
