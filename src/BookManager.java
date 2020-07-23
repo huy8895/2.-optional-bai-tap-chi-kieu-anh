@@ -2,34 +2,33 @@ import Book.Book;
 import Book.ProgrammingBook;
 import Book.FictionBook;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
-public class BookManger {
+public class BookManager {
     public static void main(String[] args) {
         Book[] programmingBooks = new ProgrammingBook[5];
         Book[] fictionBooks = new FictionBook[5];
-//        BookManger.setBookData(programmingBooks);
-        BookManger.setProgrammingBookData(programmingBooks);
-        BookManger.setFictionBookData(fictionBooks);
+        BookManager.setBookDataManual(programmingBooks);
+        BookManager.setProgrammingBookData(programmingBooks);
+        BookManager.setFictionBookData(fictionBooks);
 
         for (Book book: programmingBooks)
             System.out.println(book);
         System.out.println("Book.getTotalPrice() = " + Book.getTotalPrice());
         
-        System.out.println(BookManger.findPriceByBookName(fictionBooks,"fictionbook5"));
+        System.out.println(BookManager.findPriceByBookName(fictionBooks,"fictionbook5"));
 
-        BookManger.selectionSortPrice(programmingBooks);
+        BookManager.selectionSortPrice(programmingBooks);
         for (Book book: programmingBooks)
             System.out.println(book);
-
-
-
+    }
+    public static void displayAll(Book[] books){
+        for (Book book: books)
+            System.out.println(book);
 
     }
 
-    public static void setBookData(Book[] books){
+    public static void setBookDataManual(Book[] books){
         Scanner scanner = new Scanner(System.in);
         if (books instanceof ProgrammingBook[]){
             for (int i = 0; i < books.length;i++){
