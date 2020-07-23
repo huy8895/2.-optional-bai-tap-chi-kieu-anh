@@ -1,5 +1,3 @@
-package Book;
-
 public class FictionBook extends Book {
     private String category;
 

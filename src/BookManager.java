@@ -1,10 +1,4 @@
-import Book.Book;
-import Book.ProgrammingBook;
-import Book.FictionBook;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class BookManager {
     public static void main(String[] args) {
@@ -17,7 +11,17 @@ public class BookManager {
         BookManager.displayAll(programmingBooks,fictionBooks);
 
 
-
+    }
+    public static Book[] combine(Book[] books1,Book[] books2){
+        int lengthNew = books1.length + books2.length;
+        Book[] books = new Book[lengthNew];
+        for (int i = 0; i < books1.length;i++){
+            books[i] = books1[i];
+        }
+        for (int j = books1.length -1; j < lengthNew;j++){
+            books[j] = books[j];
+        }
+        return books;
     }
 
     public static void displayAll(Book[] books1,Book[] books2) {
@@ -28,10 +32,17 @@ public class BookManager {
             System.out.println(book);
 
     }
+    public static void displayAll(Book[] books1) {
+        ArrayList<Book> books = new ArrayList<>();
+        Collections.addAll(books,books1);
+        for (Book book : books)
+            System.out.println(book);
 
-    public static void showTotalPrice() {
-        System.out.println("Total Price: " + Book.getTotalPrice());
     }
+
+//    //public static void showTotalPrice() {
+//        System.out.println("Total Price: " + Book.getTotalPrice());
+//    }
 
     public static void setBookDataManual(Book[] books) {
         Scanner scanner = new Scanner(System.in);
@@ -82,11 +93,11 @@ public class BookManager {
     }
 
     public static void setProgrammingBookDataByTemplate(Book[] books) {
-        books[0] = new ProgrammingBook("pgb1", "java book1", 50, "tony Dung", "Java", "none");
-        books[1] = new ProgrammingBook("pgb2", "java book2", 10, "tony Dung", "Java", "none");
-        books[2] = new ProgrammingBook("pgb3", "java book3", 30.5, "tony Dung", "Java", "none");
-        books[3] = new ProgrammingBook("pgb4", "java book4", 6.0, "tony Dung", "Java", "none");
-        books[4] = new ProgrammingBook("pgb5", "java book5", 70, "tony Dung", "Java", "none");
+        books[0] = new ProgrammingBook("pgb1", "java book huy", 50, "tony Dung", "Java", "none");
+        books[1] = new ProgrammingBook("pgb2", "java book tuan", 10, "tony Dung", "Java", "none");
+        books[2] = new ProgrammingBook("pgb3", "java book tung", 30.5, "tony Dung", "Java", "none");
+        books[3] = new ProgrammingBook("pgb4", "java book quan", 6.0, "tony Dung", "Java", "none");
+        books[4] = new ProgrammingBook("pgb5", "java book thuy", 70, "tony Dung", "Java", "none");
     }
 
     public static void setFictionBookDataByTemplate(Book[] books) {
@@ -106,20 +117,32 @@ public class BookManager {
         return 0;
     }
 
-    public static int findPriceByBinarySearch(Book[] books, String bookName) {
+    public static int findPriceByBinarySearch(Book[] books1,Book[] books2, String bookName) {
+        Book[] bookList = combine(books1,books2);
+        softBooksByName(bookList);
+
         int low = 0;
-        int high = books.length - 1;
+        int high = bookList.length - 1;
         while (high > low) {
             int mid = (high + low) / 2;
-            if (bookName.charAt(0) < books[mid].getName().charAt(0)) {
+            if (bookName.charAt(0) < bookList[mid].getName().charAt(0)) {
                 high = mid - 1;
-            } else if (bookName.charAt(0) < books[mid].getName().charAt(0)) {
+            } else if (bookName.charAt(0) < bookList[mid].getName().charAt(0)) {
                 low = mid + 1;
-            } else if (bookName.equals(books[mid])) {
+            } else if (bookName.equals(bookList[mid])) {
                 return mid;
             }
         }
         return -1;
+    }
+
+    public static void softBooksByName(Book[] books){
+        Arrays.sort(books, new Comparator<Book>() {
+            @Override
+            public int compare(Book book1, Book book2) {
+                return book1.getName().compareTo(book2.getName());
+            }
+        });
     }
 
     public static void sortBookName(Book[] books) {

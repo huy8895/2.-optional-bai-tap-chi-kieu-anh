@@ -1,5 +1,3 @@
-package Book;
-
 public class ProgrammingBook extends Book {
     private String language;
     private String frameWork;

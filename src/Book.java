@@ -1,11 +1,8 @@
-package Book;
-
 public class Book {
     protected String bookCode;
     protected String name;
     protected double price;
     protected String author;
-    static double totalPrice;
 
     public Book() {
     }
@@ -15,7 +12,6 @@ public class Book {
         this.name = name;
         this.price = price;
         this.author = author;
-        totalPrice += price;
     }
 
     public String getBookCode() {
@@ -40,7 +36,6 @@ public class Book {
 
     public void setPrice(double price) {
         this.price = price;
-        totalPrice += price;
     }
 
     public String getAuthor() {
@@ -51,9 +46,6 @@ public class Book {
         this.author = author;
     }
 
-    public static double getTotalPrice() {
-        return totalPrice;
-    }
 
     @Override
     public String toString() {
