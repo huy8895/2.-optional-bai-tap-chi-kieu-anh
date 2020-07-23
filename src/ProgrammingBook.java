@@ -1,8 +1,6 @@
 public class ProgrammingBook extends Book {
     private String language;
     private String frameWork;
-    private final String JAVA_LANGUAGE = "Java";
-    private static int countJavaBook = 0;
     public ProgrammingBook() {
     }
 
@@ -10,9 +8,6 @@ public class ProgrammingBook extends Book {
         super(bookCode, name, price, author);
         this.language = language;
         this.frameWork = frameWork;
-        if (language.equals(JAVA_LANGUAGE)){
-            countJavaBook ++;
-        }
     }
 
     public String getLanguage() {
@@ -21,9 +16,6 @@ public class ProgrammingBook extends Book {
 
     public void setLanguage(String language) {
         this.language = language;
-        if (language.equals(JAVA_LANGUAGE)){
-            countJavaBook ++;
-        }
     }
 
     public String getFrameWork() {
@@ -32,10 +24,6 @@ public class ProgrammingBook extends Book {
 
     public void setFrameWork(String frameWork) {
         this.frameWork = frameWork;
-    }
-
-    public static int getCountJavaBook() {
-        return countJavaBook;
     }
 
     @Override

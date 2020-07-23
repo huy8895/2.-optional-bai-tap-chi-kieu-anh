@@ -46,6 +46,8 @@ public class BookManager2 {
                     getTotalPrice();
                     break;
                 case THREE:
+                    getNumberJavaBooks();
+                    break;
                 case FOUR:
                 case FIVE:
                 case SIX:
@@ -151,6 +153,14 @@ public class BookManager2 {
 
     }
 
+    public void getNumberJavaBooks(){
+        int countJavaBook = 0;
+        for (ProgrammingBook programmingBook: listProgrammingBook){
+            if (programmingBook.getLanguage().equals("Java"))
+                countJavaBook++;
+        }
+        System.out.println("so luong sach Java : " + countJavaBook );
+    }
 
     public void display() {
         for (ProgrammingBook programmingBook: listProgrammingBook)
