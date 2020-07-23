@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -8,8 +7,6 @@ public class BookManager {
     ArrayList<Book> booksList = new ArrayList<>();
 
     private static String choice;
-    private static final String JAVA_BOOK = "1";
-    private static final String FICTION_BOOK = "2";
     private static final String ONE = "1";
     private static final String TWO = "2";
     private static final String THREE = "3";
@@ -81,17 +78,16 @@ public class BookManager {
     }
 
     public void addBook() {
-
         System.out.println("1. them sach Programming book.");
         System.out.println("2. them sach Fiction book");
         System.out.println("0. quay tro lai");
         choice = scanner.nextLine();
 
         switch (choice) {
-            case JAVA_BOOK:
+            case ONE:
                 addProgrammingBook();
                 break;
-            case FICTION_BOOK:
+            case TWO:
                 addFictionBook();
                 break;
             case ZERO:
@@ -100,7 +96,6 @@ public class BookManager {
             default:
                 addBook();
         }
-
     }
 
     public void addProgrammingBook() {
@@ -161,7 +156,6 @@ public class BookManager {
                 if (((ProgrammingBook) book).getLanguage().equals("Java"))
                     countJavaBook++;
             }
-
         }
         System.out.println("so luong sach Java : " + countJavaBook);
     }
