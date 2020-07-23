@@ -8,12 +8,12 @@ public class BookManager {
     public static void main(String[] args) {
         Book[] programmingBooks = new ProgrammingBook[5];
         Book[] fictionBooks = new FictionBook[5];
-        BookManager.setBookDataManual(programmingBooks);
-        BookManager.setProgrammingBookData(programmingBooks);
-        BookManager.setFictionBookData(fictionBooks);
 
-        for (Book book: programmingBooks)
-            System.out.println(book);
+        BookManager.setBookDataManual(programmingBooks);
+        BookManager.setProgrammingBookDataByTemplate(programmingBooks);
+        BookManager.setFictionBookDataByTemplate(fictionBooks);
+
+
         System.out.println("Book.getTotalPrice() = " + Book.getTotalPrice());
         
         System.out.println(BookManager.findPriceByBookName(fictionBooks,"fictionbook5"));
@@ -26,6 +26,9 @@ public class BookManager {
         for (Book book: books)
             System.out.println(book);
 
+    }
+    public static void showTotalPrice(){
+        System.out.println("Total Price: " + Book.getTotalPrice());
     }
 
     public static void setBookDataManual(Book[] books){
@@ -76,7 +79,7 @@ public class BookManager {
         }
     }
 
-    public static void setProgrammingBookData(Book[] books){
+    public static void setProgrammingBookDataByTemplate(Book[] books){
         books[0] = new ProgrammingBook("pgb1","java book1",50,"tony Dung","Java","none");
         books[1] = new ProgrammingBook("pgb2","java book2",10,"tony Dung","Java","none");
         books[2] = new ProgrammingBook("pgb3","java book3",30.5,"tony Dung","Java","none");
@@ -84,7 +87,7 @@ public class BookManager {
         books[4] = new ProgrammingBook("pgb5","java book5",70,"tony Dung","Java","none");
     }
 
-    public static void setFictionBookData(Book[] books){
+    public static void setFictionBookDataByTemplate(Book[] books){
         books[0] = new FictionBook("fcb1","fictionbook1",10.6,"vo ba quan","khoa hoc vien tuong");
         books[1] = new FictionBook("fcb2","my life story",20.7,"quoc tung","tam ly");
         books[2] = new FictionBook("fcb3","fictionbook3",30.9,"chi thuy","gia dinh");
