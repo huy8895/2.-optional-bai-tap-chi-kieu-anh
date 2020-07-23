@@ -2,6 +2,8 @@ import Book.Book;
 import Book.ProgrammingBook;
 import Book.FictionBook;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class BookManager {
@@ -9,15 +11,19 @@ public class BookManager {
         Book[] programmingBooks = new ProgrammingBook[5];
         Book[] fictionBooks = new FictionBook[5];
 
-        BookManager.setBookDataManual(programmingBooks);
+        //BookManager.setBookDataManual(programmingBooks);
         BookManager.setProgrammingBookDataByTemplate(programmingBooks);
         BookManager.setFictionBookDataByTemplate(fictionBooks);
+        BookManager.displayAll(programmingBooks,fictionBooks);
 
 
 
     }
 
-    public static void displayAll(Book[] books) {
+    public static void displayAll(Book[] books1,Book[] books2) {
+        ArrayList<Book> books = new ArrayList<>();
+        Collections.addAll(books,books1);
+        Collections.addAll(books,books2);
         for (Book book : books)
             System.out.println(book);
 
