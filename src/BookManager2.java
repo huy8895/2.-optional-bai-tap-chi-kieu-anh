@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class BookManager2 {
@@ -55,6 +56,8 @@ public class BookManager2 {
                     sort();
                     break;
                 case SIX:
+                    getPriceByBookNameVerBinarySearch();
+                    break;
                 case SEVEN:
                     display();
                     break;
@@ -181,6 +184,33 @@ public class BookManager2 {
         for (Book book : booksList) {
             if (book.getName().equals(bookName)) {
                 System.out.println("cuon sach ten: " + bookName + " co gia la: " + book.getPrice());
+                isExit = true;
+            }
+        }
+        if (!isExit)
+            System.out.println("khong tim thay cuon sach co ten la: " + bookName);
+    }
+
+    public void getPriceByBookNameVerBinarySearch() {
+        Collections.sort(booksList, new Comparator<Book>() {
+            @Override
+            public int compare(Book b1, Book b2) {
+                return b1.getName().compareTo(b2.getName());
+            }
+        });
+        System.out.println("nhap ten sach can tim: ");
+        String bookName = scanner.nextLine().trim();
+        boolean isExit = false;
+        int low = 0;
+        int high = booksList.size() - 1;
+        while (high > low) {
+            int mid = (high + low) / 2;
+            if (booksList.get(low).getName().compareTo(booksList.get(mid).getName()) < 0) {
+                high = mid - 1;
+            } else if (booksList.get(low).getName().compareTo(booksList.get(mid).getName()) > 0) {
+                low = mid + 1;
+            } else if (bookName.equals(booksList.get(mid).getName())) {
+                System.out.println("cuon sach ten: " + bookName + " co gia la: " + booksList.get(mid).getPrice());
                 isExit = true;
             }
         }
