@@ -68,6 +68,7 @@ public class BookManager2 {
 
 
     private void setDefaultData(){
+        booksList.clear();
         booksList.add(new ProgrammingBook("pgb1", "java book", 30, "Leigh", "Java", "none"));
         booksList.add(new ProgrammingBook("pgb2", "php book", 20, "Casey", "php", "none"));
         booksList.add(new ProgrammingBook("pgb3", "C# book", 50, "McQuiston", "C#", "none"));
@@ -193,6 +194,7 @@ public class BookManager2 {
         System.out.println("1. Bubble sort.");
         System.out.println("2. Insertion sort.");
         System.out.println("3. Selection sort.");
+        System.out.println("4. Set Default");
         choice = scanner.nextLine();
         switch (choice){
             case ONE:
@@ -203,6 +205,9 @@ public class BookManager2 {
                 break;
             case THREE:
                 selectionSortPrice();
+                break;
+            case FOUR:
+                setDefaultData();
                 break;
             case ZERO:
                 startMenu();
