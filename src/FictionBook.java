@@ -20,11 +20,11 @@ public class FictionBook extends Book {
     @Override
     public String toString() {
         return "FictionBook{" +
-                "category='" + category + '\'' +
                 ", bookCode='" + bookCode + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", author='" + author + '\'' +
+                "category='" + category + '\'' +
                 '}';
     }
 }
