@@ -25,7 +25,7 @@ public class BookManager2 {
 
 
     public void startMenu() {
-        while (true){
+        while (true) {
             System.out.println("-----");
             System.out.println("Menu: ");
             System.out.println("1. them sach");
@@ -67,7 +67,7 @@ public class BookManager2 {
     }
 
 
-    private void setDefaultData(){
+    private void setDefaultData() {
         booksList.clear();
         booksList.add(new ProgrammingBook("pgb1", "java book", 30, "Leigh", "Java", "none"));
         booksList.add(new ProgrammingBook("pgb2", "php book", 20, "Casey", "php", "none"));
@@ -79,7 +79,6 @@ public class BookManager2 {
         booksList.add(new FictionBook("fcb3", "the silent patient", 35, "alex", "khoa hoc vien tuong"));
         booksList.add(new FictionBook("fcb4", "the testaments", 28.95, "Margret Atwood", "khoa hoc vien tuong"));
     }
-
 
     public void addBook() {
 
@@ -149,54 +148,54 @@ public class BookManager2 {
         booksList.add(fictionBook);
     }
 
-    public void getTotalPrice(){
+    public void getTotalPrice() {
         double totalPrice = 0;
-        for (Book book:booksList)
-            totalPrice+= book.getPrice();
+        for (Book book : booksList)
+            totalPrice += book.getPrice();
         System.out.println("tong tien: " + totalPrice);
 
     }
 
-    public void getNumberJavaBooks(){
+    public void getNumberJavaBooks() {
         int countJavaBook = 0;
-        for (Book book: booksList){
-            if (book instanceof ProgrammingBook){
+        for (Book book : booksList) {
+            if (book instanceof ProgrammingBook) {
                 if (((ProgrammingBook) book).getLanguage().equals("Java"))
                     countJavaBook++;
             }
 
         }
-        System.out.println("so luong sach Java : " + countJavaBook );
+        System.out.println("so luong sach Java : " + countJavaBook);
     }
 
     public void display() {
-        for (Book book: booksList)
+        for (Book book : booksList)
             System.out.println(book);
         System.out.println();
     }
 
-    public void getPriceByBookNameVerLinearSearch(){
+    public void getPriceByBookNameVerLinearSearch() {
         System.out.println("nhap ten sach can tim: ");
         String bookName = scanner.nextLine().trim();
         boolean isExit = false;
-        for (Book book:booksList){
-            if (book.getName().equals(bookName)){
+        for (Book book : booksList) {
+            if (book.getName().equals(bookName)) {
                 System.out.println("cuon sach ten: " + bookName + " co gia la: " + book.getPrice());
                 isExit = true;
             }
         }
         if (!isExit)
-        System.out.println("khong tim thay cuon sach co ten la: " + bookName);
+            System.out.println("khong tim thay cuon sach co ten la: " + bookName);
     }
 
-    public void sort(){
+    public void sort() {
         System.out.println("chon kieu sap xep: ");
         System.out.println("1. Bubble sort.");
         System.out.println("2. Insertion sort.");
         System.out.println("3. Selection sort.");
         System.out.println("4. Set Default");
         choice = scanner.nextLine();
-        switch (choice){
+        switch (choice) {
             case ONE:
                 bubbleSortPrice();
                 break;
@@ -223,8 +222,8 @@ public class BookManager2 {
             for (int j = 0; j < n - i - 1; j++) {
                 if (booksList.get(j).getPrice() > booksList.get(j + 1).getPrice()) {
                     Book temp = booksList.get(j);
-                    booksList.set(j,booksList.get(j + 1));
-                    booksList.set(j + 1,temp);
+                    booksList.set(j, booksList.get(j + 1));
+                    booksList.set(j + 1, temp);
                 }
             }
         }
@@ -238,7 +237,7 @@ public class BookManager2 {
             int j = i - 1;
 
             while (j >= 0 && booksList.get(j).getPrice() > key.getPrice()) {
-                booksList.set(j + 1,booksList.get(j));
+                booksList.set(j + 1, booksList.get(j));
                 j--;
             }
             booksList.set(j + 1, key);
@@ -252,8 +251,8 @@ public class BookManager2 {
             for (int j = i + 1; j < n; j++) {
                 if (min.getPrice() > booksList.get(j).getPrice()) {
                     Book temp = booksList.get(i);
-                    booksList.set(i,booksList.get(j));
-                    booksList.set(j,temp);
+                    booksList.set(i, booksList.get(j));
+                    booksList.set(j, temp);
                 }
             }
         }
