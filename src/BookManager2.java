@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class BookManager2 {
@@ -49,6 +50,8 @@ public class BookManager2 {
                     getNumberJavaBooks();
                     break;
                 case FOUR:
+                    getPriceByBookNameVerLinearSearch();
+                    break;
                 case FIVE:
                 case SIX:
                 case SEVEN:
@@ -63,15 +66,15 @@ public class BookManager2 {
     }
 
     private void setDefaultData(){
-        listProgrammingBook.add(new ProgrammingBook("pgb1", "java book huy", 30, "tony Dung", "Java", "none"));
-        listProgrammingBook.add(new ProgrammingBook("pgb1", "java book huy", 20, "tony Dung", "Java", "none"));
-        listProgrammingBook.add(new ProgrammingBook("pgb1", "java book huy", 50, "tony Dung", "Java", "none"));
-        listProgrammingBook.add(new ProgrammingBook("pgb1", "java book huy", 40, "tony Dung", "Java", "none"));
+        listProgrammingBook.add(new ProgrammingBook("pgb1", "java book", 30, "Leigh", "Java", "none"));
+        listProgrammingBook.add(new ProgrammingBook("pgb2", "php book", 20, "Casey", "php", "none"));
+        listProgrammingBook.add(new ProgrammingBook("pgb3", "C# book", 50, "McQuiston", "C#", "none"));
+        listProgrammingBook.add(new ProgrammingBook("pgb4", "C++ book", 40, "Griffin", "C++", "none"));
 
-        listFictionBook.add(new FictionBook("fcb1", "fictionbook1", 55, "vo ba quan", "khoa hoc vien tuong"));
-        listFictionBook.add(new FictionBook("fcb1", "fictionbook1", 35, "vo ba quan", "khoa hoc vien tuong"));
-        listFictionBook.add(new FictionBook("fcb1", "fictionbook1", 35, "vo ba quan", "khoa hoc vien tuong"));
-        listFictionBook.add(new FictionBook("fcb1", "fictionbook1", 15, "vo ba quan", "khoa hoc vien tuong"));
+        listFictionBook.add(new FictionBook("fcb1", "harry porter ", 55, "Bardugo", "khoa hoc vien tuong"));
+        listFictionBook.add(new FictionBook("fcb2", "the hobbit", 35, "Taylor", "khoa hoc vien tuong"));
+        listFictionBook.add(new FictionBook("fcb3", "the silent patient", 35, "alex", "khoa hoc vien tuong"));
+        listFictionBook.add(new FictionBook("fcb4", "the testaments", 28.95, "Margret Atwood", "khoa hoc vien tuong"));
     }
 
 
@@ -167,5 +170,20 @@ public class BookManager2 {
             System.out.println(programmingBook);
         for (FictionBook fictionBook: listFictionBook)
             System.out.println(fictionBook);
+    }
+
+    public void getPriceByBookNameVerLinearSearch(){
+        System.out.println("nhap ten sach can tim: ");
+        String bookName = scanner.nextLine();
+
+        ArrayList<? extends Book> bookArrayList = new ArrayList<>();
+        Collections.addAll(listProgrammingBook);
+        Collections.addAll(listFictionBook);
+        for (Book book:bookArrayList){
+            if (book.getName().equals(bookName))
+                System.out.println("gia cua " + bookName + " la: " + book.getPrice());
+            else
+                System.out.println("khong tim thay cuon sach co ten la: " + bookName);
+        }
     }
 }
