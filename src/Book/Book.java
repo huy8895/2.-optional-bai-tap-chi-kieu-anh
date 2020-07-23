@@ -51,7 +51,7 @@ public class Book {
         this.author = author;
     }
 
-    public static double getTotalPrice(){
+    public static double getTotalPrice() {
         return totalPrice;
     }
 
@@ -64,4 +64,7 @@ public class Book {
                 ", author='" + author + '\'' +
                 '}';
     }
+
+
+
 }

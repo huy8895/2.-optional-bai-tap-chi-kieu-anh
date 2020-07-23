@@ -1,6 +1,9 @@
 import Book.Book;
 import Book.ProgrammingBook;
 import Book.FictionBook;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class BookManger {
@@ -13,12 +16,15 @@ public class BookManger {
 
         for (Book book: programmingBooks)
             System.out.println(book);
-        System.out.println("ProgrammingBook.getCountJavaBook() = " + ProgrammingBook.getCountJavaBook());
-        System.out.println("ProgrammingBook.getTotalPrice() = " + ProgrammingBook.getTotalPrice());
-
+        System.out.println("Book.getTotalPrice() = " + Book.getTotalPrice());
+        
         System.out.println(BookManger.findPriceByBookName(fictionBooks,"fictionbook5"));
 
-        
+        BookManger.selectionSortPrice(programmingBooks);
+        for (Book book: programmingBooks)
+            System.out.println(book);
+
+
 
 
     }
@@ -72,11 +78,11 @@ public class BookManger {
     }
 
     public static void setProgrammingBookData(Book[] books){
-        books[0] = new ProgrammingBook("pgb1","java book1",10.5,"tony Dung","Java","none");
-        books[1] = new ProgrammingBook("pgb2","java book2",20.5,"tony Dung","Java","none");
-        books[2] = new ProgrammingBook("pgb3","java book3",10.5,"tony Dung","Java","none");
-        books[3] = new ProgrammingBook("pgb4","java book4",10.5,"tony Dung","Java","none");
-        books[4] = new ProgrammingBook("pgb5","java book5",10.5,"tony Dung","Java","none");
+        books[0] = new ProgrammingBook("pgb1","java book1",50,"tony Dung","Java","none");
+        books[1] = new ProgrammingBook("pgb2","java book2",10,"tony Dung","Java","none");
+        books[2] = new ProgrammingBook("pgb3","java book3",30.5,"tony Dung","Java","none");
+        books[3] = new ProgrammingBook("pgb4","java book4",6.0,"tony Dung","Java","none");
+        books[4] = new ProgrammingBook("pgb5","java book5",70,"tony Dung","Java","none");
     }
 
     public static void setFictionBookData(Book[] books){
@@ -84,7 +90,7 @@ public class BookManger {
         books[1] = new FictionBook("fcb2","my life story",20.7,"quoc tung","tam ly");
         books[2] = new FictionBook("fcb3","fictionbook3",30.9,"chi thuy","gia dinh");
         books[3] = new FictionBook("fcb4","my style",40.1,"van dung","fashion");
-        books[4] = new FictionBook("fcb5","fictionbook5",50.5,"adam quan","honor");
+        books[4] = new FictionBook("fcb5","fictionbook5",10.5,"adam quan","honor");
     }
     
     public static double findPriceByBookName(Book[] books,String bookName){
@@ -95,4 +101,47 @@ public class BookManger {
         }
         return 0;
     }
+
+    public static void bubbleSortPrice(Book[] books) {
+        int n = books.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++){
+                if (books[j].getPrice()>books[j + 1].getPrice()){
+                    Book temp = books[j];
+                    books[j] = books[j + 1];
+                    books[j + 1] = temp;
+                }
+            }
+        }
+
+    }
+
+    public static void insertionSortPrice(Book[] books){
+        int n = books.length;
+        for (int i = 0; i < n; i++){
+            Book key = books[i];
+            int j = i -1;
+
+            while (j >= 0 && books[j].getPrice() > key.getPrice()){
+                books[j + 1] = books[j];
+                j--;
+            }
+            books[j + 1] = key;
+        }
+    }
+
+    public static void selectionSortPrice(Book[] books){
+        int n = books.length;
+        for (int i = 0; i < n; i ++){
+            Book min = books[i];
+            for (int j = i + 1; j < n;j ++ ){
+                if (min.getPrice() > books[j].getPrice()){
+                    Book temp = books[i];
+                    books[i] = books[j];
+                    books[j] = temp;
+                }
+            }
+        }
+    }
+
 }
